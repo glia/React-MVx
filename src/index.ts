@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { define, Record, Store, mixins, mixinRules, ChainableAttributeSpec } from 'type-r'
+import { define, Record, Store, mixins, mixinRules, type, ChainableAttributeSpec } from 'type-r'
 import processSpec, { Node, Element, TypeSpecs } from './define'
 import Link from './link'
 import { Component } from './component'
@@ -34,8 +34,8 @@ ReactMVx.default = ReactMVx;
 ReactMVx.define = define;
 ReactMVx.mixins = mixins;
 
-ReactMVx.Node = Node.value( null );
-ReactMVx.Element = Element.value( null );
+ReactMVx.Node = type(Node).value( null );
+ReactMVx.Element = type(Element).value( null );
 ReactMVx.Link = Link;
 
 ReactMVx.Component = Component as any;

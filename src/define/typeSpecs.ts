@@ -15,7 +15,7 @@ export function compileSpecs( props : TypeSpecs ){
         watchers : { [ name : string ] : PropWatcher },
         changeHandlers : { [ name : string ] : ChangeHandler[] };
 
-    modelProto.forEachAttr( modelProto._attributes, ( spec : AnyType, name : string ) => {
+    modelProto.forEach(( spec : AnyType, name : string ) => {
         // Skip auto-generated `id` attribute.
         if( name !== 'id' ){
             const { value, type, options } = spec;

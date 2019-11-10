@@ -7,6 +7,7 @@ import { MixableConstructor, Messenger } from 'type-r'
 
 export interface ComponentClass<Proto> extends ReactComponentClass, MixableConstructor {
     prototype : Proto & ComponentProto
+    mixins: any
 }
 
 export type ComponentProto = Component & Messenger

@@ -1,7 +1,7 @@
 /*****************
  * State
  */
-import { Record, Store } from 'type-r';
+import { Record } from 'type-r';
 import { ComponentClass } from './common';
 export interface StateDefinition {
     state?: object | typeof Record;
@@ -14,7 +14,7 @@ export default function process(this: ComponentClass<StateProto>, definition: St
 export declare const StateMixin: {
     _initializeState(): void;
     context: {
-        _nestedStore: typeof Store;
+        _nestedStore: any;
     };
     getStore(): any;
     componentWillUnmount(): void;

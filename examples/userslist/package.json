@@ -23,10 +23,10 @@
     "react": "*",
     "react-dom": "*",
     "react-modal": "^3.1.2",
-    "react-mvx": "^2.0.0-rc900",
+    "react-mvx": "file:../../../React-MVx",
     "source-map-loader": "^0.2.3",
     "style-loader": "*",
-    "type-r": "^2.0.1",
+    "type-r": "file:../../../Type-R",
     "webpack": "^3.8.1"
   },
   "scripts": {

@@ -2,19 +2,19 @@ import './main.css'
 import ReactDOM from 'react-dom'
 
 import React, { Link } from 'react-mvx'
-import { Record, define } from 'type-r'
+import { Record, define, shared, type } from 'type-r'
 import { localStorageIO } from 'type-r/endpoints/localStorage'
 
 import Modal from 'react-modal'
 
-const Email = String.has.check( x => !x || x.indexOf( '@' ) >= 0, 'Must be valid e-mail' );
+const Email = type(String).check( x => !x || x.indexOf( '@' ) >= 0, 'Must be valid e-mail' );
 
 @define class User extends Record {
     static attributes = {
-        name : String.isRequired
-                    .has.check( x => x.indexOf( ' ' ) < 0, 'Spaces are not allowed' ),
+        name : type(String).required
+                    .check( x => x.indexOf( ' ' ) < 0, 'Spaces are not allowed' ),
 
-        email : Email.isRequired,
+        email : type(Email).required,
 
         isActive : true
     }
@@ -28,14 +28,24 @@ const Email = String.has.check( x => !x || x.indexOf( '@' ) >= 0, 'Must be valid
     static attributes = {
         id : 'users-list',
         users   : User.Collection, // No comments required, isn't it?
+        //editing : shared(type(User)),
         editing : User.from( 'users' ), // User from user collection, which is being edited.
-        adding  : User.shared.value( null ) // New user, which is being added.
+        adding  : shared(type(User)).value( null ) // New user, which is being added.
     }
 }
 
 @define
 export class UsersList extends React.Component {
     static State = AppState;
+    /*
+    static state = {
+        id : 'users-list',
+        users   : User.Collection, // No comments required, isn't it?
+        editing : shared(User),
+        //editing : User.from( 'users' ), // User from user collection, which is being edited.
+        adding  : shared(type(User)).value( null ) // New user, which is being added.
+    }
+    */
 
     componentWillMount(){
         this.state.fetch();
@@ -97,7 +107,7 @@ const UserRow = ( { user, onEdit } ) =>(
 
 @define class EditUser extends React.Component {
     static props = {
-        userLink    : Link.has.watcher( React.assignToState( 'user' ) ),
+        userLink    : type(Link).watcher( React.assignToState( 'user' ) ),
         onSave : Function
     };
 
@@ -121,6 +131,7 @@ const UserRow = ( { user, onEdit } ) =>(
         const { user } = this.state,
                 linked = user.linkAll();
 
+        console.log('EditUser user', user);
         return (
             <form onSubmit={ this.onSubmit }>
                 <label>
